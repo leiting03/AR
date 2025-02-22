@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR 体验</title>
+</head>
+<body>
+    <h1>欢迎体验AR！</h1>
+    <p>请用手机摄像头扫描您的包包图案，看看神奇的AR效果！</p>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR 体验</title>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+<body>
+    <mindar-image-viewer autoplay>
+        <a-scene mindar-image embedded mindar-image>
+            <a-assets>
+                <a-asset-item id="marker" src="F/xindun.mind"></a-asset-item>  
+                <a-asset-item id="bag-model" src="F/3dmoxing.glb"></a-asset-item>  
+            </a-assets>
+            <a-camera position="0 0 0"></a-camera>
+            <a-entity mindar-image-target="targetIndex: 0">
+                <a-entity gltf-model="#bag-model" scale="0.5 0.5 0.5"></a-entity>
+            </a-entity>
+        </a-scene>
+    </mindar-image-viewer>
+</body>
+</html>
