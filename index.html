@@ -4,43 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR 体验</title>
+
+    <!-- 引入 MindAR 和 A-Frame -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+    <style>
+        /* 样式优化 */
+        #arButton {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #arButton:hover {
+            background-color: #666;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>欢迎体验AR！</h1>
+    <h1>欢迎体验 <b>AR</b>！</h1>
     <p>请用手机摄像头扫描您的包包图案，看看神奇的AR效果！</p>
     
     <!-- AR 体验按钮 -->
     <button id="arButton">AR 体验</button>
-    
+
+    <!-- AR 体验区域 -->
+    <div id="arContainer" style="display: none;">
+        <mindar-image-viewer autoplay>
+            <a-scene mindar-image embedded mindar-image>
+                <a-assets>
+                    <a-asset-item id="marker" src="F/xindun.mind"></a-asset-item>  
+                    <a-asset-item id="bag-model" src="F/3dmoxing.glb"></a-asset-item>  
+                </a-assets>
+                <a-camera position="0 0 0"></a-camera>
+                <a-entity mindar-image-target="targetIndex: 0">
+                    <a-entity gltf-model="#bag-model" scale="0.5 0.5 0.5"></a-entity>
+                </a-entity>
+            </a-scene>
+        </mindar-image-viewer>
+    </div>
+
     <script>
-        // 监听按钮点击事件
+        // 监听按钮点击事件，显示 AR 体验
         document.getElementById("arButton").addEventListener("click", function() {
-            alert("按钮被点击了！如果你看到了这个提示，说明按钮已经正常工作。");
+            document.getElementById("arContainer").style.display = "block";
         });
     </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR 体验</title>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image.prod.js"></script>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-</head>
-<body>
-    <mindar-image-viewer autoplay>
-        <a-scene mindar-image embedded mindar-image>
-            <a-assets>
-                <a-asset-item id="marker" src="F/xindun.mind"></a-asset-item>  
-                <a-asset-item id="bag-model" src="F/3dmoxing.glb"></a-asset-item>  
-            </a-assets>
-            <a-camera position="0 0 0"></a-camera>
-            <a-entity mindar-image-target="targetIndex: 0">
-                <a-entity gltf-model="#bag-model" scale="0.5 0.5 0.5"></a-entity>
-            </a-entity>
-        </a-scene>
-    </mindar-image-viewer>
 </body>
 </html>
