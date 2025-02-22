@@ -10,21 +10,29 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 
     <style>
-        /* 样式优化 */
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
         #arButton {
             display: block;
-            width: 100%;
+            width: 80%;
             padding: 15px;
             font-size: 18px;
-            text-align: center;
             background-color: #444;
             color: white;
             border: none;
             cursor: pointer;
-            margin-top: 20px;
+            margin: 20px auto;
         }
         #arButton:hover {
             background-color: #666;
+        }
+        #arContainer {
+            display: none;
+            width: 100%;
+            height: 80vh;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -34,28 +42,31 @@
     <p>请用手机摄像头扫描您的包包图案，看看神奇的AR效果！</p>
     
     <!-- AR 体验按钮 -->
-    <button id="arButton">AR 体验</button>
+    <button id="arButton">开始 AR 体验</button>
 
     <!-- AR 体验区域 -->
-    <div id="arContainer" style="display: none;">
-        <mindar-image-viewer autoplay>
-            <a-scene mindar-image embedded mindar-image>
-                <a-assets>
-                    <a-asset-item id="marker" src="F/xindun.mind"></a-asset-item>  
-                    <a-asset-item id="bag-model" src="F/3dmoxing.glb"></a-asset-item>  
-                </a-assets>
-                <a-camera position="0 0 0"></a-camera>
-                <a-entity mindar-image-target="targetIndex: 0">
-                    <a-entity gltf-model="#bag-model" scale="0.5 0.5 0.5"></a-entity>
-                </a-entity>
-            </a-scene>
-        </mindar-image-viewer>
+    <div id="arContainer">
+        <a-scene 
+            mindar-image="imageTargetSrc: ./F/xindun.mind" 
+            embedded 
+            arjs>
+            <a-assets>
+                <a-asset-item id="bag-model" src="./F/3dmoxing.glb"></a-asset-item>  
+            </a-assets>
+            <a-camera position="0 0 0"></a-camera>
+            <a-entity mindar-image-target="targetIndex: 0">
+                <a-entity gltf-model="#bag-model" scale="0.5 0.5 0.5"></a-entity>
+            </a-entity>
+        </a-scene>
     </div>
 
     <script>
-        // 监听按钮点击事件，显示 AR 体验
         document.getElementById("arButton").addEventListener("click", function() {
-            document.getElementById("arContainer").style.display = "block";
+            let arContainer = document.getElementById("arContainer");
+            if (arContainer.style.display === "none") {
+                arContainer.style.display = "block";
+                this.style.display = "none"; // 隐藏按钮
+            }
         });
     </script>
 </body>
